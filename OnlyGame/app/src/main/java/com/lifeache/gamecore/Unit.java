@@ -1,4 +1,4 @@
-package com.lifeache.og;
+package com.lifeache.gamecore;
 
 public class Unit
 {

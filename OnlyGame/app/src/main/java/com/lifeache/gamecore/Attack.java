@@ -1,5 +1,4 @@
 package com.lifeache.gamecore;
-import com.lifeache.og.*;
 
 public class Attack
 {
@@ -16,6 +15,9 @@ public class Attack
 	{
 		this.attacker = attacker;
 		this.target = target;
+	}
+	public static void main(String[] args) {
+		
 	}
 	
 }

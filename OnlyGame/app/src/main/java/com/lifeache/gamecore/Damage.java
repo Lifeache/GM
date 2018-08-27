@@ -1,7 +1,5 @@
 package com.lifeache.gamecore;
 
-import com.lifeache.og.*;
-
 public class Damage
 {
 	/**
