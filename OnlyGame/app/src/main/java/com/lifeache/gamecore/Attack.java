@@ -1,6 +1,6 @@
 package com.lifeache.gamecore;
 
-public class Attack
+public class Attack extends Movement
 {
 	/**
 	*攻击结算。
@@ -15,9 +15,6 @@ public class Attack
 	{
 		this.attacker = attacker;
 		this.target = target;
-	}
-	public static void main(String[] args) {
-		
 	}
 	
 }

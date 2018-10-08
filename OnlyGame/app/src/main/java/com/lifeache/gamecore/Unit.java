@@ -1,4 +1,5 @@
 package com.lifeache.gamecore;
+import java.util.*;
 
 public class Unit
 {
@@ -7,6 +8,12 @@ public class Unit
 	int hp;
 	int maxHp;
 	int defence;
+	
+	Map atrMap = new HashMap<String,Object>();
+	
+	Object getAttribute(String name){
+		return atrMap.get(name);
+	}
 
 	public Unit(String name, int attack, int hp, int defence)
 	{
