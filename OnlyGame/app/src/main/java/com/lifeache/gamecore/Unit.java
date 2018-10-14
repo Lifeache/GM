@@ -3,78 +3,63 @@ import java.util.*;
 
 public class Unit
 {
-	String name;
-	int attack;
-	int hp;
-	int maxHp;
-	int defence;
+    boolean isDeath;
+	HashMap atrMap = new HashMap<String,Object>();
+
+    public boolean isDeath()
+    {
+        return isDeath;
+    }
 	
-	Map atrMap = new HashMap<String,Object>();
-	
-	Object getAttribute(String name){
+	public Object getAttribute(String name){
 		return atrMap.get(name);
 	}
-
-	public Unit(String name, int attack, int hp, int defence)
-	{
-		this.name = name;
-		this.attack = attack;
-		this.hp = hp;
-		this.maxHp = hp;
-		this.defence = defence;
-	}
-
-	public void setMaxHp(int maxHp)
-	{
-		this.maxHp = maxHp;
-	}
-
-	public int getMaxHp()
-	{
-		return maxHp;
-	}
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setAttack(int attack)
-	{
-		this.attack = attack;
-	}
-
-	public int getAttack()
-	{
-		return attack;
-	}
-
-	public void setHp(int hp)
-	{
-		this.hp = hp;
-	}
-
-	public int getHp()
-	{
-		return hp;
-	}
-
-	public void setDefence(int defence)
-	{
-		this.defence = defence;
-	}
-
-	public int getDefence()
-	{
-		return defence;
+	
+	public void addAttribute(String name, Object value){
+		atrMap.put(name,value);
 	}
 	
-	public int attack(Unit u){
-		u.setHp(u.getHp() - attack);
-		return attack;
+	public void setAttribute(String name, Object value){
+		atrMap.put(name,value);
 	}
+	
+	public float dealDamage(Damage damage,Unit target){
+		return target.takeDamge(damage);
+	}
+	
+	public float takeDamge(Damage damage){
+        int  amr = getAttribute("armor");
+        int hp = getAttribute("hp");
+        float r = amr * 6 / (float)(100 + amr * 6);
+        float tv = (1 - r)  * damage.getDamageValue();
+        hp = (int) (hp - tv);
+        setAttribute("hp",hp);
+        if (hp < 0){
+            deathReady();
+        }
+		return tv;
+	}
+	
+	public void deathReady(){
+		die();
+	}
+	
+	public void die(){
+		isDeath = true;
+	}
+
+	@Override
+	public String toString()
+	{
+		
+		return "[" + getAttribute("name").toString()+","+
+		getAttribute("attack").toString()+"]";
+	}
+	
+	
+	
+	public Unit(){
+		
+	}
+
 }

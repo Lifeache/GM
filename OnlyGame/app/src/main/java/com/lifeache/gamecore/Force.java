@@ -9,9 +9,9 @@ public class Force
 	*/
 	
 	String forceName;
-	Vector<Unit> group;
+	Vector<Unit> group = new Vector<Unit>();
 	
-	public Force(){
+	private Force(){
 		this("未命名势力");
 	}
 	
@@ -35,6 +35,10 @@ public class Force
 	
 	public void removeUnit(Unit unit){
 		group.remove(unit);
+	}
+	
+	public Unit getFirstUnit(){
+		return group.get(0);
 	}
 	
 	}

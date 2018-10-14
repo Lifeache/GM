@@ -4,6 +4,7 @@ import android.view.*;
 import android.text.*;
 import android.graphics.*;
 import java.util.logging.*;
+import com.lifeache.gamecore.ui.*;
 
 public class TextClicker extends ClickableSpan
 {
@@ -16,7 +17,10 @@ public class TextClicker extends ClickableSpan
 	{
 		DefaultDispatcher dd = DefaultDispatcher.getInstance();
 		Game g = dd.getGame();
-		dd.setText(g.getSence(id));
+		Scene s = g.getCurrentScene();
+        s = s.transferById(id);
+		dd.setText(s);
+        g.setCurrentScene(s);
 	}
 
 	@Override

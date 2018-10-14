@@ -1,7 +1,21 @@
 package com.lifeache.og;
+import com.lifeache.gamecore.ui.*;
+import java.io.*;
 
-public interface Dispatcher
+public abstract class Dispatcher
 {
-	public void append(String t);
-	public void setText(CharSequence t);
+	private static Dispatcher dspcr;
+	
+	public abstract void append(String t);
+	public abstract void setText(CharSequence t);
+	public abstract void setText(Scene sb);
+	public abstract InputStream openStream(String fileName);
+	
+	public static Dispatcher getInstance(){
+		return dspcr;
+	}
+	
+	public static void setDefaultDispatcher(Dispatcher dspcr){
+		Dispatcher.dspcr = dspcr;
+	}
 }

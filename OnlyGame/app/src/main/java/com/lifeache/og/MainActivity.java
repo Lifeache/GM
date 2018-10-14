@@ -13,7 +13,7 @@ public class MainActivity extends Activity
 	{
 		hander.post(new Runnable(){
 		public void run(){
-			Showable spStr = new Showable(t,0);
+			Clickable spStr = new Clickable(t,0);
 			tv.append("\n");
 			tv.append(spStr);
 		};
@@ -43,9 +43,10 @@ public class MainActivity extends Activity
 		tv.setTextColor(Color.BLACK);
 		tv.setMovementMethod(LinkMovementMethod.getInstance());
 		setTitle("什么");
-		
-		Game g = new Game();
-		tv.setText(g.getStartSence());
+        
+		Dispatcher.setDefaultDispatcher(dd);
+		Game g = dd.getGame();
+		dd.setText(g.getStartScene());
     }
 	
 	Handler hander = new Handler();

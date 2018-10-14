@@ -2,58 +2,103 @@ package com.lifeache.og;
 import android.text.*;
 import android.text.style.*;
 import com.lifeache.gamecore.*;
+import java.io.*;
+import org.json.*;
+import com.lifeache.gamecore.ui.*;
 
 public class Game
 {
-	public  CharSequence getStartSence(){
-		SpannableStringBuilder ssb = new SpannableStringBuilder();
+	Scene currentScene;
+
+	public void setCurrentScene(Scene currentScene)
+	{
+		this.currentScene = currentScene;
+	}
+
+	public Scene getCurrentScene()
+	{
+		return currentScene;
+	}
+	public  Scene getStartScene(){
+		final Scene ssb = new Scene();
+		ssb.setSceneTransfer(new SceneTransfer(){
+			
+				@Override
+				public Scene transferTo(int id)
+				{
+					switch(id){
+						case 1 : 
+							return battle();
+						case 4:
+							return test();
+					}
+					return ssb;
+				}
+
+			
+		});
+		currentScene = ssb;
+		
 		ssb.append("你要做什么？\n");
-		Showable s0= new Showable("战斗",1);
-		Showable s1 = new Showable("查看",2);
+		Button s0= new Button("战斗",1);
+		Button s1 = new Button("查看",2);
+		Button s2 = new Button("测试",4);
 		ssb.append(s0);
 		ssb.append("\n");
 		ssb.append(s1);
 		ssb.append("\n");
+		ssb.append(s2);
+		ssb.append("\n");
 		return ssb;
 	}
 	
-	public CharSequence getSence(int id){
-		switch(id){
-			case 1 : 
-				return battle();
-			case 3:
-				return attack();
+	private Scene test(){
+		Scene ssb = new Scene();
+		UnitCreator uc = new UnitCreator();
+		DefaultDispatcher dd = DefaultDispatcher.getInstance();
+		StringFileManager sfm = new StringFileManager();
+		String s = sfm.getMonsterDatasheet();
+		ssb.appendln(s);
+		/*
+		try
+		{
+			JSONArray j = new JSONArray(s);
+			ssb.appendln(j.toString());
 		}
-		return getStartSence();
-	}
-	Unit gzj = new Unit("公子颉",25,125,0);
-	Unit guai = new Unit("丛林漫步者",20,160,0);
-	private CharSequence battle(){
-		SpannableStringBuilder ssb = new SpannableStringBuilder();
-		ssb.append(gzj.getName() + "(生命:" + gzj.getHp() +"/" + gzj.getMaxHp() + ")\n");
-		ssb.append("=====================\n");
-		Showable s = new Showable("攻击",3);
-		ssb.append(s);
-		ssb.append(guai.getName() + "  生命: " + guai.getHp() + "/" + guai.getMaxHp() + "\n\n");
+		catch (JSONException e)
+		{}
+		*/
+		
+		/*
+		InputStream in = dd.openStream("gzj.json");
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		String str;
+		try
+		{
+			while((str = br.readLine()) != null){
+				ssb.append(str + "\n");
+			}
+		}
+		catch (IOException e)
+		{}
+		Unit u = uc.createUnit(ssb.toString());
+		ssb.append(u.toString() + "\n");
+		*/
 		return ssb;
 	}
-	
-	private CharSequence attack(){
-		SpannableStringBuilder ssb = new SpannableStringBuilder();
-		ssb.append(gzj.getName() + "攻击" + guai.getName() + "\n");
-		ssb.append("造成了" + gzj.attack(guai) + "点伤害\n");
-		if(guai.getHp() <= 0){
-			ssb.append(guai.getName() + "死亡\n");
-			ssb.append(gzj.getName() + "获得胜利\n");
-		} else {
-			ssb.append(guai.getName() + "攻击" + gzj.getName() + "\n");
-			ssb.append("造成了" + guai.attack(gzj) + "点伤害\n");
-			if(gzj.getHp() <= 0){
-				ssb.append(gzj.getName() + "死亡\n");
-				ssb.append(gzj.getName() + "失败\n");
-			} 
+	private Scene battle(){
+		
+		UnitPool pool = new UnitPool();
+		StringFileManager sfm = new StringFileManager();
+		pool.addUnits(sfm.getPlayerHeroDatasheet());
+		pool.addUnits(sfm.getMonsterDatasheet());
+		Unit gzj = pool.get(0);
+		Unit guai = pool.get(1);
+		Force f1 = new Force(gzj.getAttribute("name").toString());
+		Force f2 = new Force(guai.getAttribute("name").toString());
+		f1.addUnit(gzj);
+		f2.addUnit(guai);
+		Battle battle = new Battle(f1,f2);
+		return battle.begin();
 		}
-		SpannableStringBuilder ssb2 = new SpannableStringBuilder(battle());
-		return ssb2.append(ssb);
-	}
 }

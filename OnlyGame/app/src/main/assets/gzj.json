@@ -1,0 +1,12 @@
+[
+{
+name:"公子颉",
+attack:50,
+armor:5,
+hp:220,
+mp:100,
+criticalDamage:50.5,
+criticalChance:25.5,
+evade:23.3
+}
+]

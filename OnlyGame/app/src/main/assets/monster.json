@@ -1,0 +1,12 @@
+[
+{
+name:"丛林漫步者",
+attack:10,
+armor:0,
+hp:620,
+mp:100,
+criticalDamage:150.0,
+criticalChance:20.0,
+evade:0
+}
+]
