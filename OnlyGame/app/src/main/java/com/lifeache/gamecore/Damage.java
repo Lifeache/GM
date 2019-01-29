@@ -8,7 +8,7 @@ public class Damage
 	//伤害来源
 	Unit sourceUnit;
 	//伤害值
-	int damage;
+	double damage;
 	
 	int damageType;
 	
@@ -16,7 +16,7 @@ public class Damage
 	public final static int physical_type = 1;
 	public final static int magic_type = 2;
 
-	public Damage(Unit sourceUnit,int damage,int type)
+	public Damage(Unit sourceUnit,double damage,int type)
 	{
 		this.sourceUnit = sourceUnit;
 		this.damage = damage;
@@ -28,7 +28,11 @@ public class Damage
 		return sourceUnit;
 	}
     
-    public float getDamageValue(){
+    public double getDamageValue(){
         return damage;
+    }
+    
+    public void setDamageValue(double dv){
+        this.damage = dv;;
     }
 }

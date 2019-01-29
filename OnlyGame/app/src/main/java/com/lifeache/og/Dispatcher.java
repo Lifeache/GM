@@ -10,6 +10,7 @@ public abstract class Dispatcher
 	public abstract void setText(CharSequence t);
 	public abstract void setText(Scene sb);
 	public abstract InputStream openStream(String fileName);
+    public abstract Game getGame();
 	
 	public static Dispatcher getInstance(){
 		return dspcr;

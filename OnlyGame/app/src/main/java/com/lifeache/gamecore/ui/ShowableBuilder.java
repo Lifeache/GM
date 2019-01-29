@@ -43,6 +43,11 @@ public class ShowableBuilder
 		append(text + "\n");
 		return this;
 	}
+    
+    public ShowableBuilder appendln(){
+        append("\n");
+        return this;
+	}
 	
 	public Showable get(int location){
 		return showables.get(location);
@@ -51,4 +56,8 @@ public class ShowableBuilder
 	public int size(){
 		return showables.size();
 	}
+    
+    public void clear(){
+        showables.clear();
+    }
 }

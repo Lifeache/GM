@@ -1,6 +1,7 @@
 package com.lifeache.gamecore;
 import org.json.*;
 import android.util.*;
+import com.lifeache.og.*;
 
 /**
 *专门创建单位实体的类。
@@ -28,6 +29,10 @@ public class UnitCreator
 				String name = ja.get(i).toString();
 				newUnit.addAttribute(name, json.get(name));
 			}
+            Object hp = newUnit.getAttribute(A.life);
+            Object mp = newUnit.getAttribute(A.mana);
+            newUnit.addAttribute(A.max_life,hp);
+            newUnit.addAttribute(A.max_mana,mp);
 		}
 		catch (JSONException e)
 		{}

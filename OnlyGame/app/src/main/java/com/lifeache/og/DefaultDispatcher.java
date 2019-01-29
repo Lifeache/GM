@@ -4,15 +4,18 @@ import android.content.res.*;
 import java.io.*;
 import com.lifeache.gamecore.*;
 import com.lifeache.gamecore.ui.Showable;
-import com.lifeache.gamecore.ui.*;
 import android.text.*;
+import com.lifeache.gamecore.ui.*;
+import com.lifeache.og.ui.*;
 
 public class DefaultDispatcher extends Dispatcher
 {
-	MainActivity activity;
-	Game g = new Game();
+	private static MainActivity activity;
+	private static Game g = new Game();
 	private static DefaultDispatcher dd = new DefaultDispatcher();
+    public static JSONFragment jf;
 	private DefaultDispatcher(){
+        
 	}
 
 	public void setMainActivity(MainActivity activity)
@@ -24,7 +27,8 @@ public class DefaultDispatcher extends Dispatcher
 	{
 		return activity;
 	}
-	
+    
+	@Override
 	public Game getGame(){
 		return g;
 	}
@@ -73,8 +77,15 @@ public class DefaultDispatcher extends Dispatcher
 		}
 		catch (IOException e)
 		{}
+        
 		return null;
 	}
 	
+    public void init(){
+        OMDesignerChief chief = OMDesignerChief.getInstance();
+       // chief.setFilePath(activity.getFilesDir().getAbsolutePath());
+        chief.setFilePath("/storage/emulated/0/AppProjects/gm/OnlyGame/app/src/main/assets/equipments.json");
+        g.init();
+    }
 	
 }

@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:gravity="center">
+	android:layout_width="match_parent">
 
-	<ScrollView
+	<LinearLayout
+		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
 		android:orientation="horizontal"
-		>
+		android:layout_alignParentBottom="true"
+		android:id="@+id/gamefragLinearLayout1">
 
-		<TextView
-			android:text="@string/hello_world"
-			android:layout_width="wrap_content"
+		<Button
 			android:layout_height="wrap_content"
-			android:id="@+id/tv"/>
+			android:layout_width="wrap_content"
+			android:text="Game"
+			android:layout_weight="1.0"
+			android:id="@+id/mainButton1"/>
 
-	</ScrollView>
+		<Button
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="JSON"
+			android:layout_weight="1.0"
+			android:id="@+id/mainButton2"/>
 
-</LinearLayout>
+	</LinearLayout>
+
+	<FrameLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:id="@+id/gamefragFrameLayout1"
+		android:layout_above="@id/gamefragLinearLayout1"/>
+
+</RelativeLayout>
 
